@@ -7,7 +7,10 @@ import tensorflow as tf
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Dense, Dropout
 
-from pnet2_layers.layers import Pointnet_SA, Pointnet_FP
+import importlib
+layers_mod = importlib.import_module("pointnet2-tensorflow2.pnet2_layers.layers")
+Pointnet_SA = layers_mod.Pointnet_SA
+Pointnet_FP = layers_mod.Pointnet_FP
 
 
 class SEM_SEG_Model(Model):
@@ -129,7 +132,7 @@ class SEM_SEG_Model(Model):
 
 			pred = self.forward_pass(input[0], True)
 			loss = self.compiled_loss(input[1], pred)
-		
+
 		gradients = tape.gradient(loss, self.trainable_variables)
 		self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 
@@ -151,4 +154,3 @@ class SEM_SEG_Model(Model):
 	def call(self, input, training=False):
 
 		return self.forward_pass(input, training)
-

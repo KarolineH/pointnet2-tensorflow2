@@ -7,7 +7,10 @@ import tensorflow as tf
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 
-from pnet2_layers.layers import Pointnet_SA, Pointnet_SA_MSG
+import importlib
+layers_mod = importlib.import_module("pointnet2-tensorflow2.pnet2_layers.layers")
+Pointnet_SA = layers_mod.Pointnet_SA
+Pointnet_SA_MSG = layers_mod.Pointnet_SA_MSG
 
 
 class CLS_MSG_Model(Model):
@@ -91,7 +94,7 @@ class CLS_MSG_Model(Model):
 
 			pred = self.forward_pass(input[0], True)
 			loss = self.compiled_loss(input[1], pred)
-		
+
 		gradients = tape.gradient(loss, self.trainable_variables)
 		self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 

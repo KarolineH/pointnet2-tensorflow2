@@ -5,10 +5,9 @@ import tensorflow as tf
 from tensorflow.python.framework import ops
 
 from tensorflow.keras.layers import MaxPool1D, Layer
-
-sampling_module=tf.load_op_library('./tf_ops/sampling/tf_sampling_so.so')
-grouping_module=tf.load_op_library('./tf_ops/grouping/tf_grouping_so.so')
-interpolate_module=tf.load_op_library('./tf_ops/3d_interpolation/tf_interpolate_so.so')
+sampling_module=tf.load_op_library('./pointnet2-tensorflow2/tf_ops/sampling/tf_sampling_so.so')
+grouping_module=tf.load_op_library('./pointnet2-tensorflow2/tf_ops/grouping/tf_grouping_so.so')
+interpolate_module=tf.load_op_library('./pointnet2-tensorflow2/tf_ops/3d_interpolation/tf_interpolate_so.so')
 
 def prob_sample(inp,inpr):
 	return sampling_module.prob_sample(inp,inpr)
